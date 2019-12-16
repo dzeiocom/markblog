@@ -1,3 +1,5 @@
 # PortBlog
 
-M'y personnalité Portfolio ans blog open source Websites
+My personnal Portfolio and blog
+
+_Instructions will come later here 😄_
