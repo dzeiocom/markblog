@@ -40,7 +40,7 @@ export default class PostPage extends Component<Props, States> {
 						<p>Tags:</p>
 						<ul>
 							{this.props.post.header.tags.map((el) => (
-								<li>
+								<li key={el}>
 									<Link href="/tag/[tag]" as={'/tag/'+el.toLowerCase()}>
 										<a className="button">{el}</a>
 									</Link>
