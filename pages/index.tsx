@@ -99,7 +99,7 @@ export default class Page extends Component<Props, States> {
 		)
 	}
 
-	private async onQuery(query: string, recent: boolean = true) {
+	private onQuery = async (query: string, recent: boolean = true) => {
 		// console.log(`query: ${query}`)
 		const t = elements.filter( (el) => {
 			return el.title.toLowerCase().includes(query.toLowerCase())
@@ -118,7 +118,7 @@ export default class Page extends Component<Props, States> {
 		})
 	}
 
-	private async onHeight(height: number) {
+	private onHeight = async (height: number) => {
 		this.setState({
 			asideHeight: height,
 		})
