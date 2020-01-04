@@ -8,7 +8,8 @@
     "export": "next export && node export.js && yarn move_next",
     "start": "next start",
     "move_next": "mv out/_next out/assets",
-    "serve": "serve out"
+	"serve": "serve out",
+	"lint": "tslint -c tslint.json --project tsconfig.json"
   },
   "dependencies": {
     "@zeit/next-stylus": "^1.0.1",
