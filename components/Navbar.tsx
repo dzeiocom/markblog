@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu } from 'react-feather'
 import { timingSafeEqual } from 'crypto'
+import Link from 'next/link'
 
 interface Props {
 	height?: number
@@ -59,11 +60,19 @@ export default class Navbar extends React.Component<Props, States> {
 						margin-top: ${height}px;
 						overflow-x: hidden;
 					}
+					.menu * {
+						pointer-events: none;
+					}
+					.menu.shown * {
+						pointer-events: initial;
+					}
 				`}</style>
 
 				<hr />
 				<div className="head">
-					<img src="/logo.svg" alt=""/>
+					<Link href="/">
+						<a><img src="/logo.svg" alt=""/></a>
+					</Link>
 					<span onClick={this.onClick} data-menu={this.refs.menu}>
 						<Menu size={30} />
 					</span>
@@ -84,8 +93,11 @@ export default class Navbar extends React.Component<Props, States> {
 					nav.scrolled {
 						box-shadow: 0 0 10px 5px #00000040
 					}
-					img {
-						height: 80%;
+					a {
+						height: 100%;
+						flex-grow: 1;
+						display: flex;
+						justify-content: center;
 					}
 					hr {
 						height: 10px;
@@ -94,10 +106,14 @@ export default class Navbar extends React.Component<Props, States> {
 						background: linear-gradient(90deg, #45CAFC 0%, #4285F4 92.19%);
 					}
 					.menu {
-						display: none
+						opacity: 0;
+						pointer-event: none;
+						height: 0;
+						transition: opacity 200ms cubic-bezier(.2,0,.6,1);
 					}
 					.menu.shown {
-						display: block
+						opacity: 1;
+						height: initial;
 					}
 					.head {
 						display: flex;
@@ -109,10 +125,13 @@ export default class Navbar extends React.Component<Props, States> {
 					}
 					img {
 						flex-grow: 1;
+						height: 100%;
+
 					}
 					span {
 						width: ${height-10}px;
 						height: ${height-10}px;
+						cursor: pointer;
 						display: flex;
 						justify-content: center;
 						align-items: center;

@@ -1,13 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import Category from './interfaces/Category'
 import '../styl/styl.styl'
-import { ChevronRight } from 'react-feather'
-import Router from 'next/router'
+import { ChevronRight, ChevronDown } from 'react-feather'
 
 interface Props {
-	categories?: Category[]
-	onQuery?: (query: string) => void
+	categories?: string[]
+	onQuery?: (query: string, sort?: boolean) => void
 	onHeight?: (height: number) => void
 }
 
@@ -25,18 +23,8 @@ export default class Filters extends React.Component<Props, States> {
 		super(props)
 	}
 
-	setRef = element => {
-		this.aside = element
-	}
-
 	setInput = element => {
 		this.input = element
-	}
-
-	onScroll = () => {
-		this.setState({
-			follow: window.pageYOffset > 217
-		})
 	}
 
 	onKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
@@ -53,73 +41,65 @@ export default class Filters extends React.Component<Props, States> {
 		this.input.focus()
 	}
 
-	submit = () => {
-		if (this.props.onQuery) this.props.onQuery(this.input.value)
+	onChange = (ev) => {
+		this.submit(ev.target.value === "true")
 	}
 
-
-	componentDidMount() {
-		this.onScroll()
-		this.setState({
-			height: this.aside.clientHeight
-		})
-		if (this.props.onHeight) this.props.onHeight(this.aside.clientHeight)
-		window.addEventListener('scroll', this.onScroll)
-
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener('scroll', this.onScroll)
+	submit = (sort?: boolean) => {
+		if (this.props.onQuery) this.props.onQuery(this.input.value, sort)
 	}
 
 	render() {
 		return (
-			<aside ref={this.setRef} className={this.state && this.state.follow ? "follow" : ""}>
+			<aside>
 				<div>Trier</div>
 				<div className="input icon-right">
-					<select>
-						<option value="plus récant au moins récent"></option>
+					<select onChangeCapture={this.onChange}>
+						<option value="true">plus récent au moins récent</option>
+						<option value="false">moins récent au plus récent</option>
 					</select>
+					<i>
+						<ChevronDown />
+					</i>
 				</div>
 				<div>Filtrer</div>
-				<div className="input icon-right">
+				<div className="input icon-right inline">
 					<input placeholder="ex: dzeio.com" type="text" ref={this.setInput} onKeyDownCapture={this.onKeyDown} />
 					<i>
 						<ChevronRight onClick={this.onClick} />
 					</i>
 				</div>
 				<p>Languages :</p>
-				{this.props.categories.map(cat => (
-				<Link key={cat.slug} href={cat.slug}>
-					<a>{cat.name}</a>
-				</Link>
-			))}
+				<span>
+					{this.props.categories.map(cat => (
+						<Link key={cat} href="/tag/[tag]" as={`/tag/${cat.toLowerCase()}`}>
+							<a className="button">{cat}</a>
+						</Link>
+					))}
+				</span>
+
 
 				<style jsx>{`
 
 					aside {
 						padding: 5% 3% 0;
+						display: flex;
+						flex-direction: column;
+						max-width: 445px;
 					}
 
-				@media (min-width: 820px) and (min-height: ${this.state && this.state.height ? this.state.height+100 : 600}px) {
-						aside {
-							position: absolute;
-							min-width: calc(400px - 6%);
-							right: 0;
-						}
-
-
-						aside.follow {
-							position: fixed;
-							top: 70px;
-						}
-					}
-
-
-					.input {
+					/*.input {
 						display: flex;
 						justify-content: center;
 						margin: 20px 0;
+					}*/
+
+					span {
+						display: inline-flex;
+						flex-wrap: wrap;
+					}
+					a {
+						flex-grow: 1;
 					}
 
 					div:not(.input) {
@@ -134,21 +114,8 @@ export default class Filters extends React.Component<Props, States> {
 						text-align: center;
 						border-radius: 10px;
 					}
-					a {
-						padding: 7px 12px;
-						background: #4285F4;
-						color: white;
-						text-transform: uppercase;
-						border-radius: 10px;
-						font-size: 20px;
-						text-decoration: none;
-						display: inline-block;
-
-						transition: background 200ms
-					}
-
-					a:hover {
-						background: #45CAFC;
+					.input {
+						align-self: center;
 					}
 
 				`}</style>

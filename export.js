@@ -36,13 +36,15 @@ const options3 = {
 async function run() {
 	try {
 		const res3 = await replace(options3)
-		console.log(res3)
+		// console.log(res3)
 		const res2 = await replace(options2)
-		console.log(res2)
+		// console.log(res2)
 		const results = await replace(options)
-		console.log(results)
+		// console.log(results)
+		process.exit(0)
 	} catch (error) {
 		console.error(error)
+		process.exit(1)
 	}
 }
 

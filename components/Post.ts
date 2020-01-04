@@ -7,8 +7,15 @@ interface PostInterface {
 	content: any
 }
 
-interface PostHeader {
+export interface PostHeader {
 	title: string
+	id: string
+	category: string
+	image?: string
+	imageAlt?: string
+	date: Date
+	url?: string
+	tags?: string[]
 }
 
 export default class Post implements PostInterface {
@@ -18,23 +25,27 @@ export default class Post implements PostInterface {
 	public content: string
 	public isStarted = false
 
+	public header: PostHeader
+
 	constructor(slug: string) {
 		this.slug = slug
 	}
 
 	public async fetch() {
-		console.log(this.slug)
-		const content = await import(`../posts/${this.slug}.md`)
+		if (!this.slug.endsWith(".md")) this.slug = "portfolio/" + this.slug +  ".md"
+		const content = await import(`../posts/${this.slug}`)
 		const md = matter(content.default)
 		this.title = md.data.title
+		this.header = (md.data as PostHeader)
 		this.content = md.content
 	}
 
 	public fetchSync() {
-		console.log(this.slug)
-		const content = require(`../posts/${this.slug}.md`)
+		if (!this.slug.endsWith(".md")) this.slug = "portfolio/" + this.slug +  ".md"
+		const content = require(`../posts/${this.slug}`)
 		const md = matter(content.default)
 		this.title = md.data.title
+		this.header = (md.data as PostHeader)
 		this.content = md.content
 	}
 
@@ -44,10 +55,7 @@ export default class Post implements PostInterface {
 			for (const file of files) {
 				posts.push(
 					new Post(
-						file.replace(/^.*[\\\/]/, '')
-							.split('.')
-							.slice(0, -1)
-							.join('.')
+						file.replace("./", '')
 					)
 				)
 			}

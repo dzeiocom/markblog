@@ -1,11 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import { ChevronRight } from 'react-feather'
+import next from 'next'
 
 interface Props {
 	title: string
 	date: Date
 	image?: string
+	alt?: string
 	link: string
 }
 
@@ -30,30 +32,40 @@ export default class Element extends React.Component<Props, {}> {
 		super(props)
 	}
 	render() {
+		let date = this.props.date
+		if (typeof this.props.date === "string") {
+			date = new Date(this.props.date)
+		}
+		const t = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 		return (
 			<div>
 				<Link href={this.props.link}>
 					{this.props.image ? (
-						<a><img src={this.props.image}/></a>
+						<a><img src={this.props.image} alt={this.props.alt}/></a>
 					) : (
 						<div></div>
 					)}
 				</Link>
 
-				<i>Le {this.props.date.getDate()} {months[this.props.date.getMonth()]} {this.props.date.getFullYear()}</i>
+				<i>Le {t}</i>
 				<span>
 					<Link href={this.props.link}>
 						<a>{this.props.title}</a>
 					</Link>
-					<Link href={this.props.link}>
+					<Link as={this.props.link} href="/[category]/[slug]">
 						<a><ChevronRight size={48}/></a>
 					</Link>
 				</span>
 				<style jsx>{`
 					div {
 						padding: 5% 5%;
-						max-width: 40%;
-						min-width: 400px;
+						min-width: 90%;
+					}
+					@media (min-width: 840px) {
+						div {
+							max-width: 40%;
+							min-width: 400px;
+						}
 					}
 					img {
 						width: 100%;

@@ -26,7 +26,7 @@ const PortfolioIndex: NextPage<Props> = (props: Props) => {
 		<ul>
 			{props.files.map(post => (
 				<li key={post.slug}>
-					<Link href="/portfolio/[slug]" as={`/portfolio/${post.slug}`}>
+					<Link href="/[category]/[slug]" as={`/${post.slug}`}>
 						<a>{post.title}</a>
 					</Link>
 				</li>
@@ -41,7 +41,7 @@ PortfolioIndex.getInitialProps = async (context: NextPageContext) => {
 	for (const post of await Post.fetchAll()) {
 		if (!post.isStarted) await post.fetch()
 		arr.push({
-			slug: post.slug,
+			slug: post.slug.replace(".md", ""),
 			title: post.title
 		})
 	}
@@ -49,10 +49,3 @@ PortfolioIndex.getInitialProps = async (context: NextPageContext) => {
 }
 
 export default PortfolioIndex
-
-function l(args: any) {
-	console.log(arguments)
-}
-
-async function test() {
-}
