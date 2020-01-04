@@ -1,6 +1,7 @@
 import React from 'react'
 import { PhoneCall, Mail, GitHub, Twitter, Linkedin } from 'react-feather'
 import Link from 'next/link'
+import config from '../config'
 
 interface Props {}
 
@@ -17,19 +18,19 @@ export default class Footer extends React.Component<Props, States> {
 				<div className="footer">
 					<span>
 						<a href="mailto:contact@avior.me" target="_blank">
-							<Mail color="#4285F4" />
+							<Mail color={config.colors[500]} />
 						</a>
 						<a href="tel:+33672292683" target="_blank">
-							<PhoneCall color="#4285F4" />
+							<PhoneCall color={config.colors[500]} />
 						</a>
 						<a href="https://git.delta-wings.net" target="_blank">
-							<GitHub color="#4285F4" />
+							<GitHub color={config.colors[500]} />
 						</a>
 						<a href="https://twitter.com/aviortheking" target="_blank">
-							<Twitter color="#4285F4" />
+							<Twitter color={config.colors[500]} />
 						</a>
 						<a href="https://www.linkedin.com/in/florian-bouillon/" target="_blank">
-							<Linkedin color="#4285F4" />
+							<Linkedin color={config.colors[500]} />
 						</a>
 					</span>
 				</div>

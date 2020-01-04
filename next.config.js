@@ -3,14 +3,10 @@ const glob = require('glob')
 const withOffline = require('next-offline')
 const matter = require('gray-matter')
 const fs = require('fs')
-// import posts from './posts/pages.json.ts'
-// const posts = require('./posts/pages.json.ts')
-// const t = require('./pages/portfolio/')
+
 module.exports = withOffline(withCSS({
 	/* config options here */
 	exportTrailingSlash: true,
-	// cssModules: true,
-	// target: 'serverless',
 	webpack: function(config) {
 		config.module.rules.push({
 			test: /\.md$/,

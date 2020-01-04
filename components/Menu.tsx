@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import config from '../config'
 
 interface Props {
 }
@@ -37,7 +38,7 @@ export default class Menu extends React.Component<Props, {}> {
 				}
 
 				a:hover {
-					background: #45CAFC20
+				background: ${config.colors[500]}20
 				}
 		`}</style>
 		</ul>

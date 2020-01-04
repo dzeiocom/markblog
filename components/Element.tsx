@@ -39,7 +39,7 @@ export default class Element extends React.Component<Props, {}> {
 		const t = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 		return (
 			<div>
-				<Link href={this.props.link}>
+				<Link href="/[category]/[slug]" as={this.props.link}>
 					{this.props.image ? (
 						<a><img src={this.props.image} alt={this.props.alt}/></a>
 					) : (
@@ -49,10 +49,10 @@ export default class Element extends React.Component<Props, {}> {
 
 				<i>Le {t}</i>
 				<span>
-					<Link href={this.props.link}>
+					<Link href="/[category]/[slug]" as={this.props.link}>
 						<a>{this.props.title}</a>
 					</Link>
-					<Link as={this.props.link} href="/[category]/[slug]">
+					<Link href="/[category]/[slug]" as={this.props.link}>
 						<a><ChevronRight size={48}/></a>
 					</Link>
 				</span>

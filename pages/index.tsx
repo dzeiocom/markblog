@@ -90,9 +90,11 @@ export default class Page extends Component<Props, States> {
 						justify-content: center;
 						flex-grow: 1;
 					}
+
 					main {
 						display: flex;
-						flex-direction: column-reverse;
+						flex-direction: column;
+						align-items: center;
 					}
 
 					div {
@@ -109,6 +111,7 @@ export default class Page extends Component<Props, States> {
 						}
 						main {
 							flex-direction: row;
+							align-items: stretch;
 						}
 					}
 				`}</style>

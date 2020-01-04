@@ -16,6 +16,8 @@ export interface PostHeader {
 	date: Date
 	url?: string
 	tags?: string[]
+	modifiedDate?: Date
+	short?: string
 }
 
 export default class Post implements PostInterface {

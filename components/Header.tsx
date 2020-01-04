@@ -1,4 +1,5 @@
 import React from 'react'
+import config from '../config'
 
 interface Props {
 }
@@ -14,7 +15,7 @@ export default class Header extends React.Component<Props, {}> {
 				<style jsx>{`
 					div {
 						position: relative;
-						background: url('/clouds.svg'), linear-gradient(90deg, #45CAFC 0%, #4285F4 92.19%);
+						background: url('/clouds.svg'), linear-gradient(90deg, ${config.colors[400]} 0%, ${config.colors[600]} 92.19%);
 						background-repeat: repeat-x;
 						background-position: bottom;
 						min-height: 207px;

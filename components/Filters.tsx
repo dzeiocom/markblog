@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import '../styl/styl.styl'
 import { ChevronRight, ChevronDown } from 'react-feather'
+import config from '../config'
 
 interface Props {
 	categories?: string[]
@@ -106,7 +107,7 @@ export default class Filters extends React.Component<Props, States> {
 						display: block;
 						padding: 20px;
 						margin: 10px 0;
-						background: linear-gradient(90deg, #45CAFC 0%, #4285F4 92.19%);
+						background: linear-gradient(90deg, ${config.colors[400]} 0%, ${config.colors[600]} 92.19%);
 						color: white;
 						font-size: 24px;
 						text-transform: uppercase;

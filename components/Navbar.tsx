@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu } from 'react-feather'
-import { timingSafeEqual } from 'crypto'
 import Link from 'next/link'
+import config from '../config'
 
 interface Props {
 	height?: number
@@ -36,6 +36,9 @@ export default class Navbar extends React.Component<Props, States> {
 	}
 
 	componentDidMount() {
+		if (window.location.origin !== config.domain) {
+			window.location.replace(`${config.domain}${window.location.pathname}`)
+		}
 		window.addEventListener('scroll', this.onScroll)
 	}
 
@@ -103,7 +106,7 @@ export default class Navbar extends React.Component<Props, States> {
 						height: 10px;
 						margin: 0;
 						border: none;
-						background: linear-gradient(90deg, #45CAFC 0%, #4285F4 92.19%);
+						background: linear-gradient(90deg, ${config.colors[400]} 0%, ${config.colors[600]} 92.19%);
 					}
 					.menu {
 						opacity: 0;

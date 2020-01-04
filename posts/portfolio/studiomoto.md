@@ -1,12 +1,14 @@
 ---
-title: Studiomoto
+title: Studiomoto, Site de référencement d’événement Moto en France
 id: studiomoto
 image: /uploads/stm.png
 imageAlt: Logo & Description de studiomoto
 date: 2018-10-10
+modifiedDate: 2020-01-04
 category: Portfolio
 url: https://www.studiomoto.fr/
 tags: ["PHP", "Symfony", "Javascript", "Typescript", "CSS", "Stylus"]
+short: "Studiomoto, Site de référencement d’événement Moto en France"
 ---
 
 # Studiomoto, Site de référencement d’événement Moto en France

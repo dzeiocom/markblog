@@ -1,4 +1,4 @@
-$color = #4285F4
+$color = #6200EE
 
 .input
 	position relative
@@ -16,6 +16,7 @@ $color = #4285F4
 		border-radius 10px
 		background-color #EEE
 		border none
+		color black
 		padding 15px 20px
 		margin 3px
 		box-shadow inset 0 0 0 2px #BDBDBD
@@ -72,10 +73,18 @@ $color = #4285F4
 		height 24px
 		position absolute
 		left 20px
-		top 18px
+		top 50%
+		transform translateY(-50%)
 		// pointer-events none
 		color #666
 		transition color 200ms cubic-bezier(.2,0,.6,1)
+
+	select + i {
+		pointer-events none
+	}
+
+	select option:hover
+		box-shadow 0 0 10px 100px $color inset
 
 	&.icon-right i
 		left initial

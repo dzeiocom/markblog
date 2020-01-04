@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import Menu from './Menu'
 import Header from './Header'
 import Footer from './Footer'
+import config from '../config'
 
 interface Props {
 	hasHeader?: boolean
@@ -37,7 +38,7 @@ export default class Layout extends React.Component<Props, {}> {
 						height: 100%;
 					}
 					::selection {
-						background: #4285F4;
+						background: ${config.colors[500]};
 						color: #FFF;
 					}
 					body {

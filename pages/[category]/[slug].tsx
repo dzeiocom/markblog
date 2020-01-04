@@ -5,6 +5,8 @@ import Post from "../../components/Post"
 import ReactMarkdown from 'react-markdown'
 import Error from "../_error"
 import Link from "next/link"
+import Head from "next/head"
+import config from "../../config"
 
 interface Props {
 	post: Post
@@ -18,6 +20,16 @@ export default class PostPage extends Component<Props, States> {
 	public render() {
 		return (
 			<main>
+				<Head>
+					<title key="title">{`${this.props.post.title} - ${config.og.title}`}</title>
+					<meta key="description" name="og:description" content={this.props.post.header.short || this.props.post.header.title}/>
+
+					<meta key="og:title" property="og:title" content={`${this.props.post.header.title} - ${config.og.title}`} />
+					<meta key="og:description" property="og:description" content={this.props.post.header.short || this.props.post.header.title}/>
+					{this.props.post.header.image ? (
+						<meta key="og:image" property="og:image" content={`${config.domain}${this.props.post.header.image}`}/>
+					) : undefined}
+				</Head>
 				{this.props.post === undefined ? (
 					<Error statusCode={404} />
 				) : (
@@ -48,7 +60,7 @@ export default class PostPage extends Component<Props, States> {
 					main h2 {
 						font-size: 40px;
 						text-align: center;
-						text-shadow: 4px 4px 0px rgba(66, 133, 244, 0.5);
+						text-shadow: 4px 4px 0px rgba(${config.colors.rgb500}, 0.5);
 					}
 					main h2::selection {
 						text-shadow: 4px 4px 0px rgba(255, 255, 255, 0.5);
