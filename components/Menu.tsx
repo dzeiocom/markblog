@@ -1,15 +1,10 @@
-import React from 'react'
 import Link from 'next/link'
+import React from 'react'
+
 import config from '../config'
 
-interface Props {
-}
-
-export default class Menu extends React.Component<Props, {}> {
-	constructor(props: Props) {
-		super(props)
-	}
-	render() {
+export default class Menu extends React.Component<{}, {}> {
+	public render() {
 		return (
 		<ul>
 			<li>

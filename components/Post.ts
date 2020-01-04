@@ -1,6 +1,5 @@
 import matter from 'gray-matter'
 
-
 interface PostInterface {
 	slug: string
 	title: string
@@ -15,12 +14,21 @@ export interface PostHeader {
 	imageAlt?: string
 	date: Date
 	url?: string
-	tags?: string[]
+	tags?: Array<string>
 	modifiedDate?: Date
 	short?: string
 }
 
 export default class Post implements PostInterface {
+
+	public static async fetchAll(): Promise<Array<Post>> {
+		const files: Array<string> = ((require as any).context('../posts', true, /\.md$/)).keys()
+		const posts: Array<Post> = []
+		for (const file of files) {
+			posts.push(new Post(file.replace('./', '')))
+		}
+		return posts
+	}
 
 	public slug: string
 	public title: string
@@ -34,7 +42,10 @@ export default class Post implements PostInterface {
 	}
 
 	public async fetch() {
-		if (!this.slug.endsWith(".md")) this.slug = "portfolio/" + this.slug +  ".md"
+		if (!this.slug.endsWith('.md')) {
+			this.slug = `portfolio/${this.slug}.md`
+		}
+
 		const content = await import(`../posts/${this.slug}`)
 		const md = matter(content.default)
 		this.title = md.data.title
@@ -43,24 +54,14 @@ export default class Post implements PostInterface {
 	}
 
 	public fetchSync() {
-		if (!this.slug.endsWith(".md")) this.slug = "portfolio/" + this.slug +  ".md"
+		if (!this.slug.endsWith('.md')) {
+			this.slug = `portfolio/${this.slug}.md`
+		}
+
 		const content = require(`../posts/${this.slug}`)
 		const md = matter(content.default)
 		this.title = md.data.title
 		this.header = (md.data as PostHeader)
 		this.content = md.content
-	}
-
-	public static async fetchAll(): Promise<Post[]> {
-			const files: string[] = ((require as any).context('../posts', true, /\.md$/)).keys()
-			const posts: Post[] = []
-			for (const file of files) {
-				posts.push(
-					new Post(
-						file.replace("./", '')
-					)
-				)
-			}
-			return posts
 	}
 }

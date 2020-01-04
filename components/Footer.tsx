@@ -1,17 +1,10 @@
 import React from 'react'
-import { PhoneCall, Mail, GitHub, Twitter, Linkedin } from 'react-feather'
-import Link from 'next/link'
+import { GitHub, Linkedin, Mail, PhoneCall, Twitter } from 'react-feather'
+
 import config from '../config'
 
-interface Props {}
-
-interface States {}
-
-export default class Footer extends React.Component<Props, States> {
-	constructor(props: Props) {
-		super(props)
-	}
-	render() {
+export default class Footer extends React.Component<{}, {}> {
+	public render() {
 		return (
 			<footer>
 				<div className="pre"></div>

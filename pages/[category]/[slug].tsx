@@ -1,12 +1,13 @@
-import { NextPageContext } from "next"
-
-import{ Component } from 'react'
-import Post from "../../components/Post"
+import { NextPageContext } from 'next'
+import Head from 'next/head'
+import Link from 'next/link'
+import { Component } from 'react'
 import ReactMarkdown from 'react-markdown'
-import Error from "../_error"
-import Link from "next/link"
-import Head from "next/head"
-import config from "../../config"
+
+import Post from '../../components/Post'
+import config from '../../config'
+
+import Error from '../_error'
 
 interface Props {
 	post: Post
@@ -17,15 +18,34 @@ interface States {
 }
 
 export default class PostPage extends Component<Props, States> {
+
+	public static async getInitialProps(context: NextPageContext) {
+		const { slug } = context.query
+		if (typeof slug === 'object' || slug === '[slug]') {
+			return {post: undefined}
+		}
+		const post = new Post(slug)
+		await post.fetch()
+		return {post}
+	}
+
 	public render() {
 		return (
 			<main>
 				<Head>
 					<title key="title">{`${this.props.post.title} - ${config.og.title}`}</title>
-					<meta key="description" name="og:description" content={this.props.post.header.short || this.props.post.header.title}/>
+					<meta
+						key="description"
+						name="og:description"
+						content={this.props.post.header.short || this.props.post.header.title}
+					/>
 
 					<meta key="og:title" property="og:title" content={`${this.props.post.header.title} - ${config.og.title}`} />
-					<meta key="og:description" property="og:description" content={this.props.post.header.short || this.props.post.header.title}/>
+					<meta
+						key="og:description"
+						property="og:description"
+						content={this.props.post.header.short || this.props.post.header.title}
+					/>
 					{this.props.post.header.image ? (
 						<meta key="og:image" property="og:image" content={`${config.domain}${this.props.post.header.image}`}/>
 					) : undefined}
@@ -41,7 +61,7 @@ export default class PostPage extends Component<Props, States> {
 						<ul>
 							{this.props.post.header.tags.map((el) => (
 								<li key={el}>
-									<Link href="/tag/[tag]" as={'/tag/'+el.toLowerCase()}>
+									<Link href="/tag/[tag]" as={'/tag/' + el.toLowerCase()}>
 										<a className="button">{el}</a>
 									</Link>
 								</li>
@@ -128,13 +148,5 @@ export default class PostPage extends Component<Props, States> {
 				`}</style>
 			</main>
 		)
-	}
-
-	public static async getInitialProps(context: NextPageContext) {
-		const { slug } = context.query
-		if (typeof slug === "object" || slug === "[slug]") return {post: undefined}
-		const post = new Post(slug)
-		await post.fetch()
-		return {post}
 	}
 }

@@ -1,11 +1,12 @@
-import React from 'react'
 import Link from 'next/link'
-import '../styl/styl.styl'
-import { ChevronRight, ChevronDown } from 'react-feather'
+import React from 'react'
+import { ChevronDown, ChevronRight } from 'react-feather'
+
 import config from '../config'
+import '../styl/styl.styl'
 
 interface Props {
-	categories?: string[]
+	categories?: Array<string>
 	onQuery?: (query: string, sort?: boolean) => void
 	onHeight?: (height: number) => void
 }
@@ -17,40 +18,9 @@ interface States {
 
 export default class Filters extends React.Component<Props, States> {
 
-	private aside = undefined
 	private input = undefined
 
-	constructor(props: Props) {
-		super(props)
-	}
-
-	setInput = element => {
-		this.input = element
-	}
-
-	onKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
-		setTimeout(() => {
-			this.submit()
-		}, 1);
-	}
-
-	onClick = () => {
-		if (this.input.value !== "") {
-			this.submit()
-			return
-		}
-		this.input.focus()
-	}
-
-	onChange = (ev) => {
-		this.submit(ev.target.value === "true")
-	}
-
-	submit = (sort?: boolean) => {
-		if (this.props.onQuery) this.props.onQuery(this.input.value, sort)
-	}
-
-	render() {
+	public render() {
 		return (
 			<aside>
 				<div>Trier</div>
@@ -72,13 +42,12 @@ export default class Filters extends React.Component<Props, States> {
 				</div>
 				<p>Languages :</p>
 				<span>
-					{this.props.categories.map(cat => (
+					{this.props.categories.map((cat) => (
 						<Link key={cat} href="/tag/[tag]" as={`/tag/${cat.toLowerCase()}`}>
 							<a className="button">{cat}</a>
 						</Link>
 					))}
 				</span>
-
 
 				<style jsx>{`
 
@@ -122,5 +91,33 @@ export default class Filters extends React.Component<Props, States> {
 				`}</style>
 			</aside>
 		)
+	}
+
+	private setInput = (element) => {
+		this.input = element
+	}
+
+	private onKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+		setTimeout(() => {
+			this.submit()
+		}, 1)
+	}
+
+	private onClick = () => {
+		if (this.input.value !== '') {
+			this.submit()
+			return
+		}
+		this.input.focus()
+	}
+
+	private onChange = (ev) => {
+		this.submit(ev.target.value === 'true')
+	}
+
+	private submit = (sort?: boolean) => {
+		if (this.props.onQuery) {
+			this.props.onQuery(this.input.value, sort)
+		}
 	}
 }

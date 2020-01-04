@@ -1,14 +1,9 @@
 import React from 'react'
+
 import config from '../config'
 
-interface Props {
-}
-
-export default class Header extends React.Component<Props, {}> {
-	constructor(props: Props) {
-		super(props)
-	}
-	render() {
+export default class Header extends React.Component<{}, {}> {
+	public render() {
 		return (
 			<div>
 				{/* <p>Bienvenue sur le Portfolio de Florian BOUILLON !</p> */}

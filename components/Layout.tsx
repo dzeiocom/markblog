@@ -1,9 +1,11 @@
 import React from 'react'
-import Navbar from './Navbar'
-import Menu from './Menu'
-import Header from './Header'
-import Footer from './Footer'
+
 import config from '../config'
+
+import Footer from './Footer'
+import Header from './Header'
+import Menu from './Menu'
+import Navbar from './Navbar'
 
 interface Props {
 	hasHeader?: boolean
@@ -11,10 +13,7 @@ interface Props {
 }
 
 export default class Layout extends React.Component<Props, {}> {
-	constructor(props: Props) {
-		super(props)
-	}
-	render() {
+	public render() {
 		return (
 			<div>
 				<Navbar>

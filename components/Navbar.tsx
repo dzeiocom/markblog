@@ -1,6 +1,7 @@
+import Link from 'next/link'
 import React from 'react'
 import { Menu } from 'react-feather'
-import Link from 'next/link'
+
 import config from '../config'
 
 interface Props {
@@ -17,7 +18,7 @@ export default class Navbar extends React.Component<Props, States> {
 
 	private menuRef = undefined
 
-	constructor(props: Props) {
+	public constructor(props: Props) {
 		super(props)
 
 		if (this.props.height) {
@@ -25,39 +26,25 @@ export default class Navbar extends React.Component<Props, States> {
 		}
 	}
 
-	setRef = element => {
-		this.menuRef = element
-	}
-
-	onScroll = () => {
-		this.setState({
-			scrolled: window.pageYOffset > 207
-		})
-	}
-
-	componentDidMount() {
+	public componentDidMount() {
 		if (window.location.origin !== config.domain) {
 			window.location.replace(`${config.domain}${window.location.pathname}`)
 		}
 		window.addEventListener('scroll', this.onScroll)
 	}
 
-	componentWillUnmount() {
+	public componentWillUnmount() {
 		window.removeEventListener('scroll', this.onScroll)
 	}
 
-	onClick = () => {
-		this.menuRef.classList.toggle("shown")
-	}
-
-	render() {
+	public render() {
 		const height = this.props.height || 80
 
 		// if (!this.state.scrolled)
 
 		// console.log(this.state.scrolled)
 		return (
-			<nav className={this.state && this.state.scrolled ? "scrolled" : ""}>
+			<nav className={this.state && this.state.scrolled ? 'scrolled' : ''}>
 				<style jsx global>{`
 					body {
 						margin-top: ${height}px;
@@ -120,9 +107,9 @@ export default class Navbar extends React.Component<Props, States> {
 					}
 					.head {
 						display: flex;
-						height: ${height-10}px;
+						height: ${height - 10}px;
 						background: white;
-						padding-left: ${height-10}px;
+						padding-left: ${height - 10}px;
 						justify-content: center;
 						align-items: center;
 					}
@@ -132,8 +119,8 @@ export default class Navbar extends React.Component<Props, States> {
 
 					}
 					span {
-						width: ${height-10}px;
-						height: ${height-10}px;
+						width: ${height - 10}px;
+						height: ${height - 10}px;
 						cursor: pointer;
 						display: flex;
 						justify-content: center;
@@ -143,5 +130,19 @@ export default class Navbar extends React.Component<Props, States> {
 
 			</nav>
 		)
+	}
+
+	private setRef = (element) => {
+		this.menuRef = element
+	}
+
+	private onScroll = () => {
+		this.setState({
+			scrolled: window.pageYOffset > 207,
+		})
+	}
+
+	private onClick = () => {
+		this.menuRef.classList.toggle('shown')
 	}
 }

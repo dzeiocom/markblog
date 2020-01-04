@@ -1,7 +1,6 @@
-import React from 'react'
 import Link from 'next/link'
+import React from 'react'
 import { ChevronRight } from 'react-feather'
-import next from 'next'
 
 interface Props {
 	title: string
@@ -12,7 +11,7 @@ interface Props {
 }
 
 const months = [
-	"le 13eme mois",
+	'le 13eme mois',
 	'Janvier',
 	'Février',
 	'Mars',
@@ -24,16 +23,13 @@ const months = [
 	'Septembre',
 	'Octobre',
 	'Novembre',
-	'Décembre'
+	'Décembre',
 ]
 
 export default class Element extends React.Component<Props, {}> {
-	constructor(props: Props) {
-		super(props)
-	}
-	render() {
+	public render() {
 		let date = this.props.date
-		if (typeof this.props.date === "string") {
+		if (typeof this.props.date === 'string') {
 			date = new Date(this.props.date)
 		}
 		const t = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`

@@ -1,15 +1,16 @@
 const config = {
-	domain: "https://www.avior.me",
-	og: {
-		title: "Avior.me",
-		description: "Avior.me, Site du portfolio de Avior :D"
-	},
 	colors: {
-		400: "#BB86FC",
-		500: "#6200EE",
-		rgb500: "98, 0, 238",
-		600: "#3700B3"
-	}
+		rgb500: '98, 0, 238',
+		400: '#BB86FC',
+		500: '#6200EE',
+		600: '#3700B3',
+	},
+	domain: 'https://www.avior.me',
+	// domain: 'http://localhost:3000',
+	og: {
+		description: 'Avior.me, Site du portfolio de Avior :D',
+		title: 'Avior.me',
+	},
 }
 
 export default config

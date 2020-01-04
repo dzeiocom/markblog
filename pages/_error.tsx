@@ -1,15 +1,14 @@
-import React, { Component } from 'react'
 import { NextPageContext } from 'next'
 import Head from 'next/head'
-import Layout from '../components/Layout'
+import React, { Component } from 'react'
 
 interface Props {
 	statusCode: number
 }
 
 const codesTexts = {
-	404: "Page non trouvé !",
-	500: "Le serveur n'a pas pu répondre a ta demande :O"
+	404: 'Page non trouvé !',
+	500: "Le serveur n'a pas pu répondre a ta demande :O",
 }
 
 export default class Error extends Component<Props, {}> {
@@ -21,7 +20,7 @@ export default class Error extends Component<Props, {}> {
 					<title>Pouet :D</title>
 				</Head>
 				<div className="errorContainer">
-					<h1>{statusCode ? statusCode : "404"}</h1>
+					<h1>{statusCode ? statusCode : '404'}</h1>
 					<h2>{statusCode ? codesTexts[statusCode] : codesTexts[404]}</h2>
 				</div>
 				<style jsx>{`
@@ -51,8 +50,8 @@ export default class Error extends Component<Props, {}> {
 		)
 	}
 
-	getInitialProps = ({ res, err }: NextPageContext) => {
+	public getInitialProps({ res, err }: NextPageContext) {
 		const statusCode = res ? res.statusCode : err ? err.statusCode : 404
 		return { statusCode }
-	  }
+	}
 }

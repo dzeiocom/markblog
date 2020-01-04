@@ -1,12 +1,13 @@
-import React from 'react'
 import App from 'next/app'
-import '../styl/styl.styl'
-import Layout from '../components/Layout'
 import Head from 'next/head'
+import React from 'react'
+
+import Layout from '../components/Layout'
 import config from '../config'
+import '../styl/styl.styl'
 
 class MyApp extends App {
-	render() {
+	public render() {
 		const { Component, pageProps } = this.props
 
 		return(

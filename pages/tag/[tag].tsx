@@ -1,20 +1,18 @@
-import { NextPage, NextPageContext } from "next"
-import Link from 'next/link'
-import Post from "../../components/Post"
+import { NextPage, NextPageContext } from 'next'
+
 import Element from '../../components/Element'
-import Error from "../_error"
-// import posts from '../../posts/pages.json'
-// import firstline from 'firstline'
-// import 'fs'
+import Post from '../../components/Post'
+
+import Error from '../_error'
 
 interface Props {
-	files: Post[],
+	files: Array<Post>,
 	tag: string
 }
 
 const PortfolioIndex: NextPage<Props> = (props: Props) => {
 
-	const el: JSX.Element[] = []
+	const el: Array<JSX.Element> = []
 	for (const post of props.files) {
 		el.push(
 		)
@@ -31,7 +29,13 @@ const PortfolioIndex: NextPage<Props> = (props: Props) => {
 			<h2>Tag: {props && props.tag}</h2>
 			<div>
 				{props.files.map((post, index) => (
-					<Element key={index} link={"/"+post.header.category.toLowerCase() + "/" + post.header.id} title={post.header.title} image={post.header.image} date={post.header.date || new Date} />
+					<Element
+						key={index}
+						link={`/${post.header.category.toLowerCase()}/${post.header.id}`}
+						title={post.header.title}
+						image={post.header.image}
+						date={post.header.date || new Date()}
+					/>
 				))}
 			</div>
 			<style jsx>{`
@@ -68,18 +72,24 @@ const PortfolioIndex: NextPage<Props> = (props: Props) => {
 
 PortfolioIndex.getInitialProps = async (context: NextPageContext) => {
 	const { tag } = context.query
-	if (typeof tag === "object" || tag === "[tag]") return {files: [], tag: ""}
-	const arr: Post[] = []
+	if (typeof tag === 'object' || tag === '[tag]') {
+		return {files: [], tag: ''}
+	}
+	const arr: Array<Post> = []
 	for (const post of await Post.fetchAll()) {
-		if (!post.isStarted) await post.fetch()
-		let tags = []
+		if (!post.isStarted) {
+			await post.fetch()
+		}
+		const tags = []
 		for (const tg of post.header.tags) {
 			tags.push(tg.toLowerCase())
 		}
-		if (!tags.includes(tag)) continue
+		if (!tags.includes(tag)) {
+			continue
+		}
 		arr.push(post)
 	}
-	return {files: arr, tag: tag} as Props
+	return {files: arr, tag} as Props
 }
 
 export default PortfolioIndex
