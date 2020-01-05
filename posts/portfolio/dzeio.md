@@ -10,4 +10,4 @@ url: https://dze.io/
 tags: ["Golang", "Javascript", "Typescript", "CSS", "Stylus"]
 ---
 
-# Dze.io, Page en cours 😄
+# Dze.io, Page en cours :smile:
