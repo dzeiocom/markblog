@@ -8,8 +8,8 @@
     "export": "next export && node export.js && yarn move_next",
     "start": "next start",
     "move_next": "mv out/_next out/assets",
-	"serve": "serve out",
-	"lint": "tslint -c tslint.json --project tsconfig.json"
+    "serve": "serve out",
+    "lint": "tslint -c tslint.json --project tsconfig.json"
   },
   "dependencies": {
     "@zeit/next-stylus": "^1.0.1",
@@ -17,6 +17,7 @@
     "gray-matter": "^4.0.2",
     "next": "^9.1.7",
     "next-offline": "^4.0.6",
+    "node-emoji": "^1.10.0",
     "raw-loader": "^4.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
