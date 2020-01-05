@@ -50,7 +50,7 @@ export default class Error extends Component<Props, {}> {
 		)
 	}
 
-	public getInitialProps({ res, err }: NextPageContext) {
+	public static getInitialProps({ res, err }: NextPageContext) {
 		const statusCode = res ? res.statusCode : err ? err.statusCode : 404
 		return { statusCode }
 	}
