@@ -5,11 +5,11 @@ const config = {
 		500: '#6200EE',
 		600: '#3700B3',
 	},
-	domain: 'https://www.avior.me',
-	// domain: 'http://localhost:3000',
+	domain: 'https://blog.dzeio.com',
+	// domain: 'http://localhost:5000',
 	og: {
-		description: 'Avior.me, Site du portfolio de Avior :D',
-		title: 'Avior.me',
+		description: 'Markblog - Simple Markdown blog CMS',
+		title: 'Markblog',
 	},
 }
 
