@@ -1,8 +1,9 @@
 import { NextPageContext } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
+import emoji from 'node-emoji'
 import { Component } from 'react'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown/with-html'
 
 import Post from '../../components/Post'
 import config from '../../config'
@@ -55,7 +56,7 @@ export default class PostPage extends Component<Props, States> {
 				) : (
 					<div>
 						<img src={this.props.post.header.image} alt={this.props.post.header.imageAlt} />
-						<ReactMarkdown source={this.props.post.content}/>
+						<ReactMarkdown escapeHtml={false} source={emoji.emojify(this.props.post.content, null, (code, name) => `<span class="emoji">${code}</span>`)}/>
 						<h2>Détails</h2>
 						<p>Tags:</p>
 						<ul>
