@@ -1,37 +1,51 @@
 {
-  "name": "@dzeio/markblog",
-  "version": "1.0.1",
-  "license": "MIT",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "export": "next export && node export.js && yarn move_next",
-    "start": "next start",
-    "move_next": "mv out/_next out/assets",
-    "serve": "serve out",
-    "lint": "tslint -c tslint.json --project tsconfig.json"
-  },
-  "dependencies": {
-    "@zeit/next-stylus": "^1.0.1",
-    "glob": "^7.1.6",
-    "gray-matter": "^4.0.2",
-    "next": "^9.1.7",
-    "next-offline": "^4.0.6",
-    "node-emoji": "^1.10.0",
-    "raw-loader": "^4.0.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-feather": "^2.0.3",
-    "react-markdown": "^4.3.0",
-    "replace-in-file": "^5.0.2",
-    "serve": "^11.3.0",
-    "stylus": "^0.54.7",
-    "typescript": "^3.7.4",
-    "webpack": "^4.41.5"
-  },
-  "devDependencies": {
-    "@types/node": "^13.1.4",
-    "@types/react": "^16.9.17",
-    "tslint": "^5.20.1"
-  }
+	"name": "@dzeio/markblog",
+	"version": "1.0.1",
+	"license": "MIT",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"export": "next export && node export.js && yarn move_next",
+		"start": "next start",
+		"move_next": "mv out/_next out/assets",
+		"serve": "serve out",
+		"prod": "yarn build && yarn export && yarn serve",
+		"lint": "tslint -c tslint.json --project tsconfig.json"
+	},
+	"dependencies": {
+		"@zeit/next-stylus": "^1.0.1",
+		"file-loader": "^5.0.2",
+		"glob": "^7.1.6",
+		"gray-matter": "^4.0.2",
+		"image-trace-loader": "^1.0.2",
+		"imagemin-cli": "^5.1.0",
+		"imagemin-mozjpeg": "^8.0.0",
+		"imagemin-optipng": "^7.1.0",
+		"imagemin-svgo": "^7.0.0",
+		"jimp": "^0.9.3",
+		"lqip-loader": "^2.2.0",
+		"next": "^9.1.7",
+		"next-offline": "^4.0.6",
+		"next-optimized-images": "^2.5.4",
+		"node-emoji": "^1.10.0",
+		"raw-loader": "^4.0.0",
+		"react": "^16.12.0",
+		"react-dom": "^16.12.0",
+		"react-feather": "^2.0.3",
+		"react-markdown": "^4.3.0",
+		"replace-in-file": "^5.0.2",
+		"responsive-loader": "^1.2.0",
+		"serve": "^11.3.0",
+		"stylus": "^0.54.7",
+		"svg-sprite-loader": "^4.1.6",
+		"typescript": "^3.7.4",
+		"webp-loader": "^0.6.0",
+		"webpack": "^4.41.5",
+		"webpack-cli": "^3.3.10"
+	},
+	"devDependencies": {
+		"@types/node": "^13.1.4",
+		"@types/react": "^16.9.17",
+		"tslint": "^5.20.1"
+	}
 }

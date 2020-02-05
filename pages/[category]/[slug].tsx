@@ -42,6 +42,7 @@ export default class PostPage extends Component<Props, States> {
 					/>
 
 					<meta key="og:title" property="og:title" content={`${this.props.post.header.title} - ${config.og.title}`} />
+					<title key="title">{`${this.props.post.header.title} - ${config.og.title}`}</title>
 					<meta
 						key="og:description"
 						property="og:description"
@@ -50,12 +51,17 @@ export default class PostPage extends Component<Props, States> {
 					{this.props.post.header.image ? (
 						<meta key="og:image" property="og:image" content={`${config.domain}${this.props.post.header.image}`}/>
 					) : undefined}
+					<script type="application/javascript" async defer src="https://hashover.dzeio.com/comments.php"></script>
 				</Head>
 				{this.props.post === undefined ? (
 					<Error statusCode={404} />
 				) : (
 					<div>
-						<img src={this.props.post.header.image} alt={this.props.post.header.imageAlt} />
+						<picture>
+							<source srcSet={require(`../../images${this.props.post.header.image}?webp`)} type="image/webp" />
+							<source srcSet={require(`../../images${this.props.post.header.image}`)} type="image/png" />
+							<img src={require(`../../images${this.props.post.header.image}`)} alt={this.props.post.header.imageAlt} />
+						</picture>
 						<ReactMarkdown escapeHtml={false} source={emoji.emojify(this.props.post.content, null, (code, name) => `<span class="emoji">${code}</span>`)}/>
 						<h2>Détails</h2>
 						<p>Tags:</p>
@@ -73,6 +79,7 @@ export default class PostPage extends Component<Props, States> {
 						) : undefined}
 					</div>
 				)}
+				<section id="hashover"></section>
 				<style jsx global>{`
 					main h1 {
 						font-size: 50px;
@@ -99,6 +106,9 @@ export default class PostPage extends Component<Props, States> {
 					}
 				`}</style>
 				<style jsx>{`
+					#hashover {
+						padding: 40px 10% 0;
+					}
 					main div {
 						margin-top: -150px;
 						display: flex;

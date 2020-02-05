@@ -37,7 +37,11 @@ export default class Element extends React.Component<Props, {}> {
 			<div>
 				<Link href="/[category]/[slug]" as={this.props.link}>
 					{this.props.image ? (
-						<a><img src={this.props.image} alt={this.props.alt}/></a>
+						<a><picture>
+							<source srcSet={require(`../images${this.props.image}?webp`)} type="image/webp" />
+							<source srcSet={require(`../images${this.props.image}`)} type="image/png" />
+							<img src={require(`../images${this.props.image}`)} />
+						</picture></a> //<img src={require(`../images${this.props.image}`/*this.props.image*/)} alt={this.props.alt}/>
 					) : (
 						<div></div>
 					)}

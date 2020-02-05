@@ -1,34 +1,14 @@
 {
-	"short_name": "Gitea",
-	"name": "Gitea - Git with a cup of tea",
+	"short_name": "Markblog",
+	"name": "Markblog - Simple Markdown blog CMS",
 	"icons": [
-		{
-			"src": "/img/gitea-lg.png",
-			"type": "image/png",
-			"sizes": "880x880"
-		},
-		{
-			"src": "/img/gitea-sm.png",
-			"type": "image/png",
-			"sizes": "120x120"
-		},
-		{
-			"src": "/img/gitea-512.png",
-			"type": "image/png",
-			"sizes": "512x512"
-		},
-		{
-			"src": "/img/gitea-192.png",
-			"type": "image/png",
-			"sizes": "192x192"
-		}
 	],
 	"serviceworker": {
 		"src": "/service-worker.js"
 	},
 	"start_url": "/",
 	"scope": "/",
-	"background_color": "#FAFAFA",
+	"background_color": "#6200EE",
 	"display": "standalone",
-	"theme_color": "#6cc644"
+	"theme_color": "#6200EE"
 }

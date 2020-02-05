@@ -27,9 +27,6 @@ export default class Navbar extends React.Component<Props, States> {
 	}
 
 	public componentDidMount() {
-		if (window.location.origin !== config.domain) {
-			window.location.replace(`${config.domain}${window.location.pathname}`)
-		}
 		window.addEventListener('scroll', this.onScroll)
 	}
 

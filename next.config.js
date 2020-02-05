@@ -1,10 +1,11 @@
 const withCSS = require('@zeit/next-stylus')
 const glob = require('glob')
 const withOffline = require('next-offline')
+const withOptimizedImages = require('next-optimized-images');
 const matter = require('gray-matter')
 const fs = require('fs')
 
-module.exports = withOffline(withCSS({
+module.exports = withOptimizedImages(withOffline(withCSS({
 	/* config options here */
 	exportTrailingSlash: true,
 	webpack: function(config) {
@@ -38,4 +39,4 @@ module.exports = withOffline(withCSS({
 
 		return paths
 	}
-}))
+})))

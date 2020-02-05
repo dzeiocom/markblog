@@ -16,6 +16,7 @@ class MyApp extends App {
 					<meta key="description" name="description" content={config.og.description}/>
 
 					<meta key="og:url" property="og:url" content={config.domain + this.props.router.asPath} />
+					<title key="title">{config.og.title}</title>
 					<meta key="og:title" property="og:title" content={config.og.title}/>
 					<meta key="og:description" property="og:description" content={config.og.description}/>
 					<meta key="og:type" property="og:type" content="website" />
