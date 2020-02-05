@@ -10,19 +10,19 @@ export default class Footer extends React.Component<{}, {}> {
 				<div className="pre"></div>
 				<div className="footer">
 					<span>
-						<a href="mailto:contact@avior.me" target="_blank">
+						<a aria-label="Email Address" href="mailto:contact@avior.me" target="_blank">
 							<Mail color={config.colors[500]} />
 						</a>
-						<a href="tel:+33672292683" target="_blank">
+						<a aria-label="Phone Number" href="tel:+33672292683" target="_blank">
 							<PhoneCall color={config.colors[500]} />
 						</a>
-						<a href="https://git.delta-wings.net" target="_blank">
+						<a aria-label="Git" rel="noopener noreferrer" href="https://git.delta-wings.net" target="_blank">
 							<GitHub color={config.colors[500]} />
 						</a>
-						<a href="https://twitter.com/aviortheking" target="_blank">
+						<a aria-label="Twitter" rel="nofollow noopener noreferrer" href="https://twitter.com/aviortheking" target="_blank">
 							<Twitter color={config.colors[500]} />
 						</a>
-						<a href="https://www.linkedin.com/in/florian-bouillon/" target="_blank">
+						<a aria-label="linkdedin" rel="nofollow noopener noreferrer" href="https://www.linkedin.com/in/florian-bouillon/" target="_blank">
 							<Linkedin color={config.colors[500]} />
 						</a>
 					</span>
@@ -64,3 +64,9 @@ export default class Footer extends React.Component<{}, {}> {
 		)
 	}
 }
+/*
+rel="nofollow noopener noreferrer"
+nofollow links not endorsed by the website
+noopener target can't use `window.opener` but still send the HTTP Header Referer
+noreferrer dont send the HTTP Header Referer
+*/

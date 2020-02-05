@@ -6,6 +6,7 @@ import { Component } from 'react'
 import ReactMarkdown from 'react-markdown/with-html'
 
 import Post from '../../components/Post'
+import Picture from '../../components/Picture'
 import config from '../../config'
 
 import Error from '../_error'
@@ -57,11 +58,12 @@ export default class PostPage extends Component<Props, States> {
 					<Error statusCode={404} />
 				) : (
 					<div>
-						<picture>
-							<source srcSet={require(`../../images${this.props.post.header.image}?webp`)} type="image/webp" />
-							<source srcSet={require(`../../images${this.props.post.header.image}`)} type="image/png" />
-							<img src={require(`../../images${this.props.post.header.image}`)} alt={this.props.post.header.imageAlt} />
-						</picture>
+						<Picture src={this.props.post.header.image} alt={this.props.post.header.imageAlt} parentStyle={{zIndex: 999}} style={{
+							maxWidth: "100%",
+							borderRadius: 10,
+							maxHeight: 300,
+							boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.4)"
+						}}/>
 						<ReactMarkdown escapeHtml={false} source={emoji.emojify(this.props.post.content, null, (code, name) => `<span class="emoji">${code}</span>`)}/>
 						<h2>Détails</h2>
 						<p>Tags:</p>

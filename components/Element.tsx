@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { ChevronRight } from 'react-feather'
+import Picture from './Picture'
 
 interface Props {
 	title: string
@@ -37,11 +38,7 @@ export default class Element extends React.Component<Props, {}> {
 			<div>
 				<Link href="/[category]/[slug]" as={this.props.link}>
 					{this.props.image ? (
-						<a><picture>
-							<source srcSet={require(`../images${this.props.image}?webp`)} type="image/webp" />
-							<source srcSet={require(`../images${this.props.image}`)} type="image/png" />
-							<img src={require(`../images${this.props.image}`)} />
-						</picture></a> //<img src={require(`../images${this.props.image}`/*this.props.image*/)} alt={this.props.alt}/>
+						<a aria-label={this.props.title}><Picture src={this.props.image} alt={this.props.alt} style={{height: 250, borderRadius: 10}} /></a> //<img src={require(`../images${this.props.image}`/*this.props.image*/)} alt={this.props.alt}/>
 					) : (
 						<div></div>
 					)}
@@ -53,7 +50,7 @@ export default class Element extends React.Component<Props, {}> {
 						<a>{this.props.title}</a>
 					</Link>
 					<Link href="/[category]/[slug]" as={this.props.link}>
-						<a><ChevronRight size={48}/></a>
+						<a aria-label={this.props.title}><ChevronRight size={48}/></a>
 					</Link>
 				</span>
 				<style jsx>{`
@@ -67,12 +64,7 @@ export default class Element extends React.Component<Props, {}> {
 							min-width: 400px;
 						}
 					}
-					img {
-						width: 100%;
-						border-radius: 10px;
-						height: 250px;
-						object-fit: cover;
-					}
+
 					span {
 						display: flex;
 						justify-content: space-between;

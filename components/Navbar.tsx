@@ -58,7 +58,7 @@ export default class Navbar extends React.Component<Props, States> {
 				<hr />
 				<div className="head">
 					<Link href="/">
-						<a><img src="/logo.svg" alt=""/></a>
+						<a><img src="/logo.svg" alt="logo"/></a>
 					</Link>
 					<span onClick={this.onClick} data-menu={this.refs.menu}>
 						<Menu size={30} />

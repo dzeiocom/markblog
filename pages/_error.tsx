@@ -17,23 +17,19 @@ export default class Error extends Component<Props, {}> {
 		return (
 			<main>
 				<Head>
-					<title>Pouet :D</title>
+					<title key="title">{statusCode ? statusCode : '404'} Error - Markblog</title>
 				</Head>
-				<div className="errorContainer">
+				<div>
 					<h1>{statusCode ? statusCode : '404'}</h1>
 					<h2>{statusCode ? codesTexts[statusCode] : codesTexts[404]}</h2>
 				</div>
 				<style jsx>{`
-					.errorContainer {
+					div {
 						display: flex;
 						justify-content: center;
 						align-items: center;
 						flex-direction: column;
 						height: 100%
-					}
-
-					.separator {
-						border: 1px solid black
 					}
 
 					h1 {

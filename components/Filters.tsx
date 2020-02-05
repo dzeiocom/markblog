@@ -23,9 +23,9 @@ export default class Filters extends React.Component<Props, States> {
 	public render() {
 		return (
 			<aside>
-				<div>Trier</div>
+				<label htmlFor="sidebar-sort">Trier</label>
 				<div className="input icon-right">
-					<select onChangeCapture={this.onChange}>
+					<select onChangeCapture={this.onChange} id="sidebar-sort">
 						<option value="true">plus récent au moins récent</option>
 						<option value="false">moins récent au plus récent</option>
 					</select>
@@ -33,9 +33,9 @@ export default class Filters extends React.Component<Props, States> {
 						<ChevronDown />
 					</i>
 				</div>
-				<div>Filtrer</div>
+				<label htmlFor="sidebar-filter">Filtrer</label>
 				<div className="input icon-right inline">
-					<input placeholder="ex: dzeio.com" type="text" ref={this.setInput} onKeyDownCapture={this.onKeyDown} />
+					<input id="sidebar-filter" placeholder="ex: dzeio.com" type="text" ref={this.setInput} onKeyDownCapture={this.onKeyDown} />
 					<i>
 						<ChevronRight onClick={this.onClick} />
 					</i>
@@ -72,7 +72,7 @@ export default class Filters extends React.Component<Props, States> {
 						flex-grow: 1;
 					}
 
-					div:not(.input) {
+					div:not(.input), label {
 						display: block;
 						padding: 20px;
 						margin: 10px 0;
