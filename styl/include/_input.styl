@@ -114,3 +114,8 @@ $color = #6200EE
 	input:focus:not([readonly]) + i,
 	select:focus:not([readonly]) + i
 		color $color
+
+// Fix Firefox outline in selects
+select:-moz-focusring
+	color transparent
+	text-shadow 0 0 0 #000
