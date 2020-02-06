@@ -5,12 +5,12 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"export": "next export && node export.js && yarn move_next",
+		"export": "next export && node scripts/export && yarn move_next && node scripts/generateSitemap",
 		"start": "next start",
 		"move_next": "mv out/_next out/assets",
 		"serve": "serve out",
 		"prod": "yarn build && yarn export && yarn serve",
-		"lint": "tslint -c tslint.json --project tsconfig.json"
+		"lint": "eslint . --ext .ts,.tsx"
 	},
 	"dependencies": {
 		"@zeit/next-stylus": "^1.0.1",
@@ -23,7 +23,6 @@
 		"imagemin-optipng": "^7.1.0",
 		"imagemin-svgo": "^7.0.0",
 		"jimp": "^0.9.3",
-		"lqip-loader": "^2.2.0",
 		"next": "^9.1.7",
 		"next-offline": "^5.0.0",
 		"next-optimized-images": "^2.5.4",
@@ -38,7 +37,6 @@
 		"responsive-loader": "^1.2.0",
 		"serve": "^11.3.0",
 		"stylus": "^0.54.7",
-		"svg-sprite-loader": "^4.1.6",
 		"ts-node": "^8.6.2",
 		"typescript": "^3.7.4",
 		"webp-loader": "^0.6.0",
@@ -48,6 +46,9 @@
 	"devDependencies": {
 		"@types/node": "^13.1.4",
 		"@types/react": "^16.9.17",
-		"tslint": "^5.20.1"
+		"@typescript-eslint/eslint-plugin": "^2.19.0",
+		"@typescript-eslint/parser": "^2.19.0",
+		"eslint": "^6.8.0",
+		"eslint-plugin-react": "^7.18.3"
 	}
 }
