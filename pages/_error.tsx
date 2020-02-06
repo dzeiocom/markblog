@@ -5,13 +5,21 @@ import React, { Component } from 'react'
 interface Props {
 	statusCode: number
 }
-
-const codesTexts = {
+interface Arr {
+	[key: string]: string
+}
+const codesTexts: Arr = {
 	404: 'Page non trouvé !',
-	500: "Le serveur n'a pas pu répondre a ta demande :O",
+	500: 'Le serveur n\'a pas pu répondre a ta demande :O',
 }
 
 export default class Error extends Component<Props, {}> {
+
+	public static getInitialProps({ res, err }: NextPageContext) {
+		const statusCode = res ? res.statusCode : err ? err.statusCode : 404
+		return { statusCode }
+	}
+
 	public render = () => {
 		const statusCode = this.props.statusCode
 		return (
@@ -44,10 +52,5 @@ export default class Error extends Component<Props, {}> {
 				`}</style>
 			</main>
 		)
-	}
-
-	public static getInitialProps({ res, err }: NextPageContext) {
-		const statusCode = res ? res.statusCode : err ? err.statusCode : 404
-		return { statusCode }
 	}
 }

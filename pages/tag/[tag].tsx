@@ -1,3 +1,4 @@
+import React from 'react'
 import { NextPage, NextPageContext } from 'next'
 
 import Element from '../../components/Element'
@@ -6,17 +7,11 @@ import Post from '../../components/Post'
 import Error from '../_error'
 
 interface Props {
-	files: Array<Post>,
+	files: Array<Post>
 	tag: string
 }
 
 const PortfolioIndex: NextPage<Props> = (props: Props) => {
-
-	const el: Array<JSX.Element> = []
-	for (const post of props.files) {
-		el.push(
-		)
-	}
 
 	if (props.files.length === 0) {
 		return (
@@ -28,15 +23,20 @@ const PortfolioIndex: NextPage<Props> = (props: Props) => {
 		<div>
 			<h2>Tag: {props && props.tag}</h2>
 			<div>
-				{props.files.map((post, index) => (
-					<Element
-						key={index}
-						link={`/${post.header.category.toLowerCase()}/${post.header.id}`}
-						title={post.header.title}
-						image={post.header.image}
-						date={post.header.date || new Date()}
-					/>
-				))}
+				{props.files.map((post, index) => {
+					if (!post.header) {
+						return
+					}
+					return (
+						<Element
+							key={index}
+							link={`/${post.header.category.toLowerCase()}/${post.header.id}`}
+							title={post.header.title}
+							image={post.header.image}
+							date={post.header.date || new Date()}
+						/>
+					)
+				})}
 			</div>
 			<style jsx>{`
 			span:not(.emoji) {
@@ -81,7 +81,10 @@ PortfolioIndex.getInitialProps = async (context: NextPageContext) => {
 			await post.fetch()
 		}
 		const tags = []
-		for (const tg of post.header.tags) {
+		if (!post.header) {
+			continue
+		}
+		for (const tg of post.header.tags || []) {
 			tags.push(tg.toLowerCase())
 		}
 		if (!tags.includes(tag)) {

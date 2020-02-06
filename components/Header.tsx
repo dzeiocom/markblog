@@ -4,13 +4,14 @@ import config from '../config'
 
 export default class Header extends React.Component<{}, {}> {
 	public render() {
+		const t = `linear-gradient(90deg, ${config.colors[400]} 0%, ${config.colors[600]} 92.19%)`
 		return (
 			<div>
 				{/* <p>Bienvenue sur le Portfolio de Florian BOUILLON !</p> */}
 				<style jsx>{`
 					div {
 						position: relative;
-						background: url('/clouds.svg'), linear-gradient(90deg, ${config.colors[400]} 0%, ${config.colors[600]} 92.19%);
+						background: url('/clouds.svg'), ${t};
 						background-repeat: repeat-x;
 						background-position: bottom;
 						min-height: 207px;
@@ -21,12 +22,6 @@ export default class Header extends React.Component<{}, {}> {
 						color: white;
 						font-size: 35px;
 						text-transform: uppercase;
-					}
-					img {
-						position: absolute;
-						bottom: 0;
-						min-width: 100%;
-						height: 50px;
 					}
 				`}</style>
 			</div>

@@ -9,7 +9,7 @@ import '../styl/styl.styl'
 class MyApp extends App {
 
 	public componentDidMount() {
-		if (window.location.origin !== config.domain && window.location.hostname !== "localhost") {
+		if (window.location.origin !== config.domain && window.location.hostname !== 'localhost') {
 			window.location.replace(`${config.domain}${window.location.pathname}`)
 		}
 	}

@@ -21,6 +21,17 @@ export interface PostHeader {
 
 export default class Post implements PostInterface {
 
+	public slug: string
+	public title: string = ''
+	public content: string = ''
+	public isStarted = false
+
+	public header?: PostHeader
+
+	public constructor(slug: string) {
+		this.slug = slug
+	}
+
 	public static async fetchAll(): Promise<Array<Post>> {
 		const files: Array<string> = ((require as any).context('../posts', true, /\.md$/)).keys()
 		const posts: Array<Post> = []
@@ -30,16 +41,6 @@ export default class Post implements PostInterface {
 		return posts
 	}
 
-	public slug: string
-	public title: string
-	public content: string
-	public isStarted = false
-
-	public header: PostHeader
-
-	constructor(slug: string) {
-		this.slug = slug
-	}
 
 	public async fetch() {
 		if (!this.slug.endsWith('.md')) {

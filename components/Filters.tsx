@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { RefObject, FormEvent } from 'react'
 import { ChevronDown, ChevronRight } from 'react-feather'
 
 import config from '../config'
@@ -18,7 +18,13 @@ interface States {
 
 export default class Filters extends React.Component<Props, States> {
 
-	private input = undefined
+	private input: RefObject<HTMLInputElement>
+
+	public constructor(props: Props) {
+		super(props)
+
+		this.input = React.createRef()
+	}
 
 	public render() {
 		return (
@@ -35,14 +41,20 @@ export default class Filters extends React.Component<Props, States> {
 				</div>
 				<label htmlFor="sidebar-filter">Filtrer</label>
 				<div className="input icon-right inline">
-					<input id="sidebar-filter" placeholder="ex: dzeio.com" type="text" ref={this.setInput} onKeyDownCapture={this.onKeyDown} />
+					<input
+						id="sidebar-filter"
+						placeholder="ex: dzeio.com"
+						type="text"
+						ref={this.input}
+						onKeyDownCapture={this.onKeyDown}
+					/>
 					<i>
 						<ChevronRight onClick={this.onClick} />
 					</i>
 				</div>
 				<p>Languages :</p>
 				<span>
-					{this.props.categories.map((cat) => (
+					{this.props.categories?.map(cat => (
 						<Link key={cat} href="/tag/[tag]" as={`/tag/${cat.toLowerCase()}`}>
 							<a className="button">{cat}</a>
 						</Link>
@@ -93,10 +105,6 @@ export default class Filters extends React.Component<Props, States> {
 		)
 	}
 
-	private setInput = (element) => {
-		this.input = element
-	}
-
 	private onKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
 		setTimeout(() => {
 			this.submit()
@@ -104,20 +112,20 @@ export default class Filters extends React.Component<Props, States> {
 	}
 
 	private onClick = () => {
-		if (this.input.value !== '') {
+		if (this.input.current?.value !== '') {
 			this.submit()
 			return
 		}
-		this.input.focus()
+		this.input.current.focus()
 	}
 
-	private onChange = (ev) => {
-		this.submit(ev.target.value === 'true')
+	private onChange = (ev: React.KeyboardEvent<HTMLInputElement>|FormEvent<HTMLSelectElement>) => {
+		this.submit((ev.target as HTMLInputElement).value === 'true')
 	}
 
 	private submit = (sort?: boolean) => {
-		if (this.props.onQuery) {
-			this.props.onQuery(this.input.value, sort)
+		if (this.props.onQuery && this.input.current?.value) {
+			this.props.onQuery(this.input.current.value, sort)
 		}
 	}
 }

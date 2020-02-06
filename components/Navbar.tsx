@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { RefObject } from 'react'
 import { Menu } from 'react-feather'
 
 import config from '../config'
@@ -16,10 +16,12 @@ export default class Navbar extends React.Component<Props, States> {
 
 	private height = 80
 
-	private menuRef = undefined
+	private menuRef: RefObject<any>
 
 	public constructor(props: Props) {
 		super(props)
+
+		this.menuRef = React.createRef()
 
 		if (this.props.height) {
 			this.height = this.props.height
@@ -60,12 +62,12 @@ export default class Navbar extends React.Component<Props, States> {
 					<Link href="/">
 						<a><img src="/logo.svg" alt="logo"/></a>
 					</Link>
-					<span onClick={this.onClick} data-menu={this.refs.menu}>
+					<span onClick={this.onClick} data-menu={this.menuRef}>
 						<Menu size={30} />
 					</span>
 				</div>
 
-				<div ref={this.setRef} className="menu">
+				<div ref={this.menuRef} className="menu">
 					{this.props.children}
 				</div>
 
@@ -129,10 +131,6 @@ export default class Navbar extends React.Component<Props, States> {
 		)
 	}
 
-	private setRef = (element) => {
-		this.menuRef = element
-	}
-
 	private onScroll = () => {
 		this.setState({
 			scrolled: window.pageYOffset > 207,
@@ -140,6 +138,6 @@ export default class Navbar extends React.Component<Props, States> {
 	}
 
 	private onClick = () => {
-		this.menuRef.classList.toggle('shown')
+		this.menuRef.current.classList.toggle('shown')
 	}
 }

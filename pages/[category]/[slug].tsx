@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { NextPageContext } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -32,6 +34,11 @@ export default class PostPage extends Component<Props, States> {
 	}
 
 	public render() {
+		if (!this.props.post.header) {
+			return (
+				<Error statusCode={404} />
+			)
+		}
 		return (
 			<main>
 				<Head>
@@ -42,7 +49,11 @@ export default class PostPage extends Component<Props, States> {
 						content={this.props.post.header.short || this.props.post.header.title}
 					/>
 
-					<meta key="og:title" property="og:title" content={`${this.props.post.header.title} - ${config.og.title}`} />
+					<meta
+						key="og:title"
+						property="og:title"
+						content={`${this.props.post.header.title} - ${config.og.title}`}
+					/>
 					<title key="title">{`${this.props.post.header.title} - ${config.og.title}`}</title>
 					<meta
 						key="og:description"
@@ -50,25 +61,46 @@ export default class PostPage extends Component<Props, States> {
 						content={this.props.post.header.short || this.props.post.header.title}
 					/>
 					{this.props.post.header.image ? (
-						<meta key="og:image" property="og:image" content={`${config.domain}${this.props.post.header.image}`}/>
+						<meta
+							key="og:image"
+							property="og:image"
+							content={`${config.domain}${this.props.post.header.image}`}
+						/>
 					) : undefined}
-					<script type="application/javascript" async defer src="https://hashover.dzeio.com/comments.php"></script>
+					<script
+						type="application/javascript"
+						async
+						defer
+						src="https://hashover.dzeio.com/comments.php"
+					></script>
 				</Head>
 				{this.props.post === undefined ? (
 					<Error statusCode={404} />
 				) : (
 					<div>
-						<Picture src={this.props.post.header.image} alt={this.props.post.header.imageAlt} parentStyle={{zIndex: 999}} style={{
-							maxWidth: "100%",
-							borderRadius: 10,
-							maxHeight: 300,
-							boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.4)"
-						}}/>
-						<ReactMarkdown escapeHtml={false} source={emoji.emojify(this.props.post.content, null, (code, name) => `<span class="emoji">${code}</span>`)}/>
+						<Picture
+							src={this.props.post.header.image || ''}
+							alt={this.props.post.header.imageAlt}
+							parentStyle={{zIndex: 999}}
+							style={{
+								maxWidth: '100%',
+								borderRadius: 10,
+								maxHeight: 300,
+								boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.4)',
+							}}
+						/>
+						<ReactMarkdown
+							escapeHtml={false}
+							source={emoji.emojify(
+								this.props.post.content,
+								undefined,
+								(code: string, name: string) => `<span class="emoji">${code}</span>`,
+							)}
+						/>
 						<h2>Détails</h2>
 						<p>Tags:</p>
 						<ul>
-							{this.props.post.header.tags.map((el) => (
+							{this.props.post.header.tags?.map(el => (
 								<li key={el}>
 									<Link href="/tag/[tag]" as={'/tag/' + el.toLowerCase()}>
 										<a className="button">{el}</a>

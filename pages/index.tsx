@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { Component } from 'react'
 import Element from '../components/Element'
 import Filters from '../components/Filters'
@@ -24,14 +26,15 @@ export default class Page extends Component<Props, States> {
 		const posts = await Post.fetchAll()
 		const header: Array<PostHeader> = []
 		const cats: Array<string> = []
-		posts.forEach((el) => {
+		posts.forEach(el => {
 			el.fetchSync()
+			if (!el.header) {
+				return
+			}
 			header.push(el.header)
-			cats.push(...el.header.tags)
+			cats.push(...el.header.tags || [])
 		})
-		header.sort((a, b) => {
-			return (a.date < b.date) ? 1 : -1
-		})
+		header.sort((a, b) => (a.date < b.date) ? 1 : -1)
 
 		cats.sort((a, b) => (a < b) ? -1 : 1)
 
@@ -44,10 +47,17 @@ export default class Page extends Component<Props, States> {
 	}
 
 	public render() {
+		const asideHeight = this.state?.asideHeight ? this.state.asideHeight + 100 : 600
 		return (
 			<main>
 				<span>
-					{this.state && this.state.elements && this.state.elements.length !== 0 ? this.state.elements.map((el, index) => (
+					{!this.state || !this.state.elements && (
+						<div>Chargement en cours... <span className="emoji">😃</span></div>
+					)}
+					{this.state && this.state.loaded && this.state.elements.length === 0 && (
+						<div>La recherche n&apos;a rien donnée <span className="emoji">😢</span></div>
+					)}
+					{this.state && this.state.elements && this.state.elements.map((el, index) => (
 						<Element
 							key={index}
 							link={`/${el.category.toLowerCase()}/${el.id}`}
@@ -56,13 +66,13 @@ export default class Page extends Component<Props, States> {
 							alt={el.imageAlt}
 							date={el.date || new Date()}
 						/>
-					)) : this.state && this.state.loaded ? (
-						<div>La recherche n'a rien donnée <span className="emoji">😢</span></div>
-					) : (
-						<div>Chargement en cours... <span className="emoji">😃</span></div>
-					)}
+					))}
 				</span>
-				<Filters categories={this.state && this.state.categories || []} onQuery={this.onQuery} onHeight={this.onHeight}/>
+				<Filters
+					categories={this.state && this.state.categories || []}
+					onQuery={this.onQuery}
+					onHeight={this.onHeight}
+				/>
 				<style jsx>{`
 					span:not(.emoji) {
 						display: flex;
@@ -85,7 +95,7 @@ export default class Page extends Component<Props, States> {
 						justify-content: center;
 					}
 
-					@media (min-width: 820px) and (min-height: ${this.state && this.state.asideHeight ? this.state.asideHeight + 100 : 600}px) {
+					@media (min-width: 820px) and (min-height: ${asideHeight}px) {
 						span {
 							max-width: calc(100% - 400px);
 						}
@@ -101,17 +111,11 @@ export default class Page extends Component<Props, States> {
 
 	private onQuery = async (query: string, recent: boolean = true) => {
 		// console.log(`query: ${query}`)
-		const t = elements.filter( (el) => {
-			return el.title.toLowerCase().includes(query.toLowerCase())
-		})
+		const t = elements.filter( el => el.title.toLowerCase().includes(query.toLowerCase()))
 		if (recent) {
-			t.sort((a, b) => {
-				return (a.date < b.date) ? 1 : -1
-			})
+			t.sort((a, b) => (a.date < b.date) ? 1 : -1)
 		} else {
-			t.sort((a, b) => {
-				return (a.date > b.date) ? 1 : -1
-			})
+			t.sort((a, b) => (a.date > b.date) ? 1 : -1)
 		}
 		this.setState({
 			elements: t,
@@ -124,3 +128,27 @@ export default class Page extends Component<Props, States> {
 		})
 	}
 }
+
+/*
+Email configuration :D
+
+                                  IN MX     10 srv1.dzeio.com.
+                                  IN TXT    "mailconf=https://autoconfig.avior.me/mail/config-v1.1.xml"
+                                  IN TXT    "v=spf1 mx ~all"
+_autodiscover._tcp                IN SRV    0 0 443 autodiscover.avior.me.
+_imaps._tcp                       IN SRV    0 0 143 srv1.dzeio.com.
+_submission._tcp                  IN SRV    0 0 587 srv1.dzeio.com.
+autoconfig                        IN CNAME  srv1.dzeio.com.
+autodiscover                      IN CNAME  srv1.dzeio.com.
+imap                              IN CNAME  srv1.dzeio.com.
+mail                              IN CNAME  srv1.dzeio.com.
+pop3                              IN CNAME  srv1.dzeio.com.
+smtp                              IN CNAME  srv1.dzeio.com.
+
+mail._domainkey                   IN TXT    ( "DKIM" )
+
+HestiaCP
+
+webmail                           IN CNAME srv1.dzeio.com.
+
+*/

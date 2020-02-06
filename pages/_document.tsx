@@ -1,16 +1,12 @@
-import Document, { Head, Html, Main, NextScript } from 'next/document'
+import  React from 'react'
+
+import Document, { Head, Html, Main, NextScript, DocumentContext } from 'next/document'
 import config from '../config'
 
 class MyDocument extends Document {
-	public static async getInitialProps(ctx) {
+	public static async getInitialProps(ctx: DocumentContext) {
 		const initialProps = await Document.getInitialProps(ctx)
 		return { ...initialProps }
-	}
-
-	public componentDidMount() {
-		if (window.location.origin !== config.domain && window.location.hostname !== "localhost") {
-			window.location.replace(`${config.domain}${window.location.pathname}`)
-		}
 	}
 
 	public render() {
