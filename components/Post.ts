@@ -35,6 +35,7 @@ export default class Post implements PostInterface {
 	public static async fetchAll(): Promise<Array<Post>> {
 		const files: Array<string> = ((require as any).context('../posts', true, /\.md$/)).keys()
 		const posts: Array<Post> = []
+		console.log(files)
 		for (const file of files) {
 			posts.push(new Post(file.replace('./', '')))
 		}
@@ -43,10 +44,6 @@ export default class Post implements PostInterface {
 
 
 	public async fetch() {
-		if (!this.slug.endsWith('.md')) {
-			this.slug = `portfolio/${this.slug}.md`
-		}
-
 		const content = await import(`../posts/${this.slug}`)
 		const md = matter(content.default)
 		this.title = md.data.title
@@ -55,10 +52,6 @@ export default class Post implements PostInterface {
 	}
 
 	public fetchSync() {
-		if (!this.slug.endsWith('.md')) {
-			this.slug = `portfolio/${this.slug}.md`
-		}
-
 		const content = require(`../posts/${this.slug}`)
 		const md = matter(content.default)
 		this.title = md.data.title

@@ -26,14 +26,15 @@ export default class Page extends Component<Props, States> {
 		const posts = await Post.fetchAll()
 		const header: Array<PostHeader> = []
 		const cats: Array<string> = []
-		posts.forEach(el => {
-			el.fetchSync()
+		for (const el of posts) {
+			await el.fetch()
 			if (!el.header) {
 				return
 			}
 			header.push(el.header)
 			cats.push(...el.header.tags || [])
-		})
+		}
+
 		header.sort((a, b) => (a.date < b.date) ? 1 : -1)
 
 		cats.sort((a, b) => (a < b) ? -1 : 1)

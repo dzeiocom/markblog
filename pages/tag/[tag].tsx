@@ -80,10 +80,11 @@ PortfolioIndex.getInitialProps = async (context: NextPageContext) => {
 		if (!post.isStarted) {
 			await post.fetch()
 		}
-		const tags = []
 		if (!post.header) {
 			continue
 		}
+
+		const tags = []
 		for (const tg of post.header.tags || []) {
 			tags.push(tg.toLowerCase())
 		}

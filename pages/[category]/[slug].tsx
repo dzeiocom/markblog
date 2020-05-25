@@ -24,11 +24,16 @@ interface States {
 export default class PostPage extends Component<Props, States> {
 
 	public static async getInitialProps(context: NextPageContext) {
-		const { slug } = context.query
-		if (typeof slug === 'object' || slug === '[slug]') {
+		const { slug, category } = context.query
+		if (
+			typeof slug === 'object' ||
+			slug === '[slug]' ||
+			typeof category === 'object' ||
+			category === '[category]'
+		) {
 			return {post: undefined}
 		}
-		const post = new Post(slug)
+		const post = new Post(`${category}/${slug}`)
 		await post.fetch()
 		return {post}
 	}
